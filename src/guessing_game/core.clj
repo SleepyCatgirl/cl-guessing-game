@@ -1,5 +1,6 @@
 (ns guessing-game.core
   (:gen-class))
+
 (defmacro recur-read
   "Macro for recurring from loop"
   [stri counter]
@@ -7,6 +8,7 @@
      (println ~stri)
      (recur (read-line)
             ~counter)))
+
 (defn roll-num
   "Roll between x and y, cast to integer"
   ([x y]
@@ -14,14 +16,19 @@
     (int (+ x (rand diff)))))
   ([x]
    (int (+ 1 (rand x)))))
+
 (defn str->int
   "Syntatic sugar for converting STR to INT"
   [str]
   (Integer. str))
+
 (defn sanitize
   "Check if input contains only numbers"
   [str]
   (re-matches #"[0-9]+" str))
+
+
+
 (defn -main
   "Main FN where looping happens, and asks for number"
   []
