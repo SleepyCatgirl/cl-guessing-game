@@ -2,7 +2,8 @@
   (:gen-class))
 
 (defmacro recur-read
-  "Macro for recurring from loop"
+  "Macro for recurring from loop in the context of
+  this program"
   [stri counter]
   `(do
      (println ~stri)
@@ -28,6 +29,20 @@
   (re-matches #"[0-9]+" str))
 
 
+(defn askNum
+  "Keep asking for rolledNum until input equals it"
+  [rolledNum]
+  (loop [inputNum (read-line)
+         counter 0]
+    (cond
+      (nil? (sanitize inputNum)) (recur-read
+                                  "Not a number" counter)
+      (> (str->int inputNum) rolledNum) (recur-read
+                                         "\nToo big" (+ counter 1))
+      (< (str->int inputNum) rolledNum) (recur-read
+                                         "\nToo small" (+ counter 1))
+      :else (println "WIN" counter))))
+
 
 (defn -main
   "Main FN where looping happens, and asks for number"
@@ -37,13 +52,4 @@
     (print "Welcome!\n"
            "Guess a number between 0 and 100: ")
     (print rolledNum)
-    (loop [inputNum (read-line)
-           counter 0]
-      (cond
-        (nil? (sanitize inputNum)) (recur-read
-                                    "Not a number" counter)
-        (> (str->int inputNum) rolledNum) (recur-read
-                                           "\nToo big" (+ counter 1))
-        (< (str->int inputNum) rolledNum) (recur-read
-                                           "\nToo small" (+ counter 1))
-        :else (println "WIN" counter)))))
+    (askNum rolledNum)))
