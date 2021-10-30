@@ -6,6 +6,7 @@ Wrote this with intent of learning things like:
 + Loop/recur
 + Writing very simple macros
 + Input sanitization
++ Basic I/O
 ## Installation
 
 Download from http://example.com/FIXME.
